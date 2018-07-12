@@ -1,0 +1,32 @@
+
+# Allow iterm integration with bash shell
+source ~/.iterm2_shell_integration.bash
+
+# Add `~/bin` to the `$PATH`
+export PATH="$HOME/bin:$PATH";
+
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+
+# Source bashrc
+source ~/.bashrc
+
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend;
+
+# Add tab completion for many Bash commands
+if [ -f /etc/bash_completion ]; then
+source /etc/bash_completion;
+fi;
+
+# Git bash completion
+if [ -f /usr/local/Cellar/bash_completion ]; then
+  . /usr/local/Cellar/bash_completion
+fi
+source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
